@@ -1,0 +1,36 @@
+﻿@model NetCoreWebShell.Models.InputLogModel;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/js/site.js"></script>
+    <script>
+        var log = @Json.Serialize(Model.Commands);
+    </script>
+</head>
+
+<body>
+    <div class="console">
+        <div id="output" style="white-space: pre-line">
+            <br>
+            <span> @System.Runtime.InteropServices.RuntimeInformation.OSDescription</span>
+            <span> @System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription</span>
+            <span> @System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture</span>
+            <br>
+        </div>
+        <div>
+            <span id="dir">C:\</span>
+            <input class="textbox" type="text" id="input" onkeydown="Run(event)">
+        </div>
+    </div>
+</body>
+
+</html>
